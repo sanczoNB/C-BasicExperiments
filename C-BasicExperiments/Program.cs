@@ -15,6 +15,8 @@ namespace C_BasicExperiments
         {
             Metoda("Pirania byte", ConsoleColor.Red);
             Metoda("Yawood");
+            Metoda(color:ConsoleColor.DarkGreen, text:"witaj");
+            Metoda(text:"witaj", color:ConsoleColor.DarkCyan);
 
             Console.ReadKey();
         }
