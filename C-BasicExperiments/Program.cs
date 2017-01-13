@@ -13,11 +13,19 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
-            Metoda("Pirania byte", ConsoleColor.Red);
-            Metoda("Yawood");
-            Metoda(color:ConsoleColor.DarkGreen, text:"witaj");
-            Metoda(text:"witaj", color:ConsoleColor.DarkCyan);
+            Console.WriteLine("Bez refa");
+            double min = 0;
+            double max = 0;
+            DoubleRange(min, max);
+            Console.WriteLine("Liczby double mogą należęć do przedziału (" + min + "," + max + ")");
 
+            Console.WriteLine("\n**********\n");
+
+            double minForOut;
+            double maxForOut;
+            Console.WriteLine("Z urzyciem słówka kluczowego ref");
+            DoubleRange(out minForOut, out maxForOut);
+            Console.WriteLine("Liczby double mogą należęć do przedziału (" + minForOut + "," + maxForOut + ")");
             Console.ReadKey();
         }
 
@@ -68,6 +76,25 @@ namespace C_BasicExperiments
             Console.ForegroundColor = color;
             Console.WriteLine(text);
             Console.ForegroundColor = currentColor;
+        }
+
+        private static int Kwadrat(int args)
+        {
+            return args*args;
+        }
+
+        private static void DoubleRange(double min, double max)
+        {
+            min = double.MinValue;
+            max = double.MaxValue;
+            Console.WriteLine("Liczby double mogą należęć do przedziału (" + min +","+max+")");
+        }
+
+        private static void DoubleRange(out double min, out double max)
+        {
+            min = double.MinValue;
+            max = double.MaxValue;
+            Console.WriteLine("Liczby double mogą należęć do przedziału (" + min + "," + max + ")");
         }
     }
 }
