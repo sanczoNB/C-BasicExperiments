@@ -13,7 +13,8 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
-            PresentLazyInicialization();
+            Metoda("Pirania byte", ConsoleColor.Red);
+            Metoda("Yawood");
 
             Console.ReadKey();
         }
@@ -59,9 +60,12 @@ namespace C_BasicExperiments
         }
 
         //przeciążenie(overload) metody Metoda()
-        private static void Metoda(string text)
+        private static void Metoda(string text, ConsoleColor color = ConsoleColor.Blue)
         {
+            ConsoleColor currentColor = Console.ForegroundColor;
+            Console.ForegroundColor = color;
             Console.WriteLine(text);
+            Console.ForegroundColor = currentColor;
         }
     }
 }
