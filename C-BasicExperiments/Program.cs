@@ -52,5 +52,16 @@ namespace C_BasicExperiments
                               lb.Value.Text + "\"");
             Console.WriteLine(lb.IsValueCreated.ToString());
         }
+
+        private static void Metoda() // głowa metody, sygnatura
+        {
+            Console.WriteLine("Hello World!"); // ciało metody
+        }
+
+        //przeciążenie(overload) metody Metoda()
+        private static void Metoda(string text)
+        {
+            Console.WriteLine(text);
+        }
     }
 }
