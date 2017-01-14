@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Channels;
 using System.Windows.Forms;
 
 namespace C_BasicExperiments
 {
     class Program
     {
+        private static void object_MethodEnded(object sender, DateTime timeOfMethodEnded)
+        {
+            Console.WriteLine("Zakończona metoda obiektu typu " + sender.GetType().Name + " (czas: " + timeOfMethodEnded + ")");
+        }
+
         private enum Numbers:byte
         {
            Two=1, Tree, Six=6, Seven=7
@@ -13,19 +19,15 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Bez refa");
-            double min = 0;
-            double max = 0;
-            DoubleRange(min, max);
-            Console.WriteLine("Liczby double mogą należęć do przedziału (" + min + "," + max + ")");
 
-            Console.WriteLine("\n**********\n");
+            var obiekt = new Klasa();
+            //subskrypcja 
+            obiekt.DelgateMethodEnded = object_MethodEnded;
+            obiekt.EventMethodEnded += object_MethodEnded;
 
-            double minForOut;
-            double maxForOut;
-            Console.WriteLine("Z urzyciem słówka kluczowego ref");
-            DoubleRange(out minForOut, out maxForOut);
-            Console.WriteLine("Liczby double mogą należęć do przedziału (" + minForOut + "," + maxForOut + ")");
+            //uruchomienie metody, która wywoła metodę zdarzeniową
+            obiekt.Metoda();
+
             Console.ReadKey();
         }
 
