@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Channels;
+using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
 namespace C_BasicExperiments
 {
     class Program
     {
-        private static void object_MethodEnded(object sender, DateTime timeOfMethodEnded)
-        {
-            Console.WriteLine("Zakończona metoda obiektu typu " + sender.GetType().Name + " (czas: " + timeOfMethodEnded + ")");
-        }
+        delegate int DInc(int n);
+
+        delegate bool DIsEqual(double x, double y);
+
+        delegate void DShow(int x);
 
         private enum Numbers:byte
         {
@@ -19,16 +19,26 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Wyrażenia Lambda:\n");
 
-            var obiekt = new Klasa();
-            //subskrypcja 
-            obiekt.DelgateMethodEnded = object_MethodEnded;
-            obiekt.EventMethodEnded += object_MethodEnded;
+            DInc Inc = (int n) => n + 1;
+            Console.WriteLine("Inc(1)=" + Inc(1));
 
-            //uruchomienie metody, która wywoła metodę zdarzeniową
-            obiekt.Metoda();
+            DIsEqual IsEqual = (x, y) => x == y;
+            int a = 10;
+            int b = 20;
+            Console.WriteLine("Czy równe a={0} i b={1} ? {2}",a,b,(IsEqual(a,b) ? "Tak" : "Nie"));
+            Console.WriteLine("Czy równe a={0} i a={1} ? {2}", a, a, (IsEqual(a, a) ? "Tak" : "Nie"));
+
+            DShow Show = n => { Console.WriteLine(n.ToString()); };
+            Show(10);
 
             Console.ReadKey();
+        }
+
+        private static void object_MethodEnded(object sender, DateTime timeOfMethodEnded)
+        {
+            Console.WriteLine("Zakończona metoda obiektu typu " + sender.GetType().Name + " (czas: " + timeOfMethodEnded + ")");
         }
 
         private static void PresentEnum()
