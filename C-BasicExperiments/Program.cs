@@ -42,37 +42,14 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
-            Random r = new Random();
-            int n = r.Next(8);
-            string opis;
-            switch (n)
+            for (int i = -1; i <= 1; i++)
             {
-                case 1:
-                    opis = "niedziela";
-                    break;
-                case 2:
-                    opis = "poniedziałek";
-                    break;
-                case 3:
-                    opis = "wtorek";
-                    break;
-                case 4:
-                    opis = "środa";
-                    break;
-                case 5:
-                    opis = "czwartek";
-                    break;
-                case 6:
-                    opis = "piątek";
-                    break;
-                case 7:
-                    opis = "sobota";
-                    break;
-                default:
-                    opis = "błąd";
-                    break;
+                for (int j = -1; j <= 1; j++)
+                {
+                    if (j ==0 && i == 0) continue; // pomijamy przypadeki, gdy obie zmienne równe są 0
+                    Console.WriteLine("i=" + i + ", j=" + j);
+                }
             }
-            Console.WriteLine("Dzień tygodnia: " + n + ", " + opis);
             Console.ReadKey();
         }
 
