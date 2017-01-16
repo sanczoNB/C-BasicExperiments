@@ -42,23 +42,37 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
-            for (Typ type = Typ.Int; type <= Typ.ClassInstance; type++)
+            Random r = new Random();
+            int n = r.Next(8);
+            string opis;
+            switch (n)
             {
-                try
-                {
-                    dynamic o = ReturnDynamicObject(type);
-                    Console.WriteLine("Obiekt: " + o.ToString() + ", typ: " + o.GetType().FullName);
-                    o.Metoda();// tu będzie skakał wyjątek
-                }
-                catch (Exception exc)
-                {
-                    ConsoleColor currentColor = Console.ForegroundColor;
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Błąd: " + exc.Message);
-                    Console.ForegroundColor = currentColor;
-                }
+                case 1:
+                    opis = "niedziela";
+                    break;
+                case 2:
+                    opis = "poniedziałek";
+                    break;
+                case 3:
+                    opis = "wtorek";
+                    break;
+                case 4:
+                    opis = "środa";
+                    break;
+                case 5:
+                    opis = "czwartek";
+                    break;
+                case 6:
+                    opis = "piątek";
+                    break;
+                case 7:
+                    opis = "sobota";
+                    break;
+                default:
+                    opis = "błąd";
+                    break;
             }
-
+            Console.WriteLine("Dzień tygodnia: " + n + ", " + opis);
             Console.ReadKey();
         }
 
