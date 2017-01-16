@@ -31,7 +31,7 @@ namespace C_BasicExperiments
             Console.WriteLine("Czy równe a={0} i a={1} ? {2}", a, a, (IsEqual(a, a) ? "Tak" : "Nie"));
 
             DShow Show = n => { Console.WriteLine(n.ToString()); };
-            Show(10);
+            Show(new int());
 
             Console.ReadKey();
         }
