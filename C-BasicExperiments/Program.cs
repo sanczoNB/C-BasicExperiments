@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 
 namespace C_BasicExperiments
@@ -19,19 +18,17 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Wyrażenia Lambda:\n");
-
-            DInc Inc = (int n) => n + 1;
-            Console.WriteLine("Inc(1)=" + Inc(1));
-
-            DIsEqual IsEqual = (x, y) => x == y;
-            int a = 10;
-            int b = 20;
-            Console.WriteLine("Czy równe a={0} i b={1} ? {2}",a,b,(IsEqual(a,b) ? "Tak" : "Nie"));
-            Console.WriteLine("Czy równe a={0} i a={1} ? {2}", a, a, (IsEqual(a, a) ? "Tak" : "Nie"));
-
-            DShow Show = n => { Console.WriteLine(n.ToString()); };
-            Show(new int());
+            dynamic o; //nie działa IntelliSense
+            o = 5;
+            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
+            o = 5L;
+            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
+            o = "Helion";
+            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
+            o = 1.0f;
+            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
+            o = 1.0;
+            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
 
             Console.ReadKey();
         }
