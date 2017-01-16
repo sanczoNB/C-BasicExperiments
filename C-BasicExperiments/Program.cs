@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace C_BasicExperiments
@@ -42,15 +43,38 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
-            for (int i = -1; i <= 1; i++)
-            {
-                for (int j = -1; j <= 1; j++)
-                {
-                    if (j ==0 && i == 0) continue; // pomijamy przypadeki, gdy obie zmienne równe są 0
-                    Console.WriteLine("i=" + i + ", j=" + j);
-                }
-            }
+
+            HowExceptionWorks(2);
+            Console.WriteLine();
+            HowExceptionWorks(0);
+
             Console.ReadKey();
+        }
+
+        private static int? HowExceptionWorks(int dzielnik)
+        {
+            try
+            {
+                int y = 10/dzielnik;
+                return y;
+
+            }
+            catch (ArithmeticException exc)
+            {
+                ConsoleColor currentColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Dzielenie przez zero ({0})", exc.Message);
+                Console.ForegroundColor = currentColor;
+                return null;
+            }
+            finally
+            {
+                ConsoleColor currentColor = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("Finally ");
+                Console.ForegroundColor = currentColor;
+                //w bloku finally nie może być returnu
+            }
         }
 
         private static dynamic ReturnDynamicObject(Typ whichType = Typ.Int)
