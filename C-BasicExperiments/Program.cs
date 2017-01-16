@@ -11,26 +11,91 @@ namespace C_BasicExperiments
 
         delegate void DShow(int x);
 
-        private enum Numbers:byte
+        private enum Numbers : byte
         {
-           Two=1, Tree, Six=6, Seven=7
+            Two = 1,
+            Tree,
+            Six = 6,
+            Seven = 7
+        }
+
+        private static dynamic obiekt = 1; // pole zaincjonowane typem int
+
+        enum Typ
+        {
+            Int,
+            Long,
+            String,
+            Float,
+            Double,
+            DividedByZeroException,
+            Field,
+            ClassInstance
+        }
+
+        private dynamic DynamicObject // właściwość
+        {
+            get { return ReturnDynamicObject(); }
+
+            set { obiekt = value; }
         }
 
         static void Main(string[] args)
         {
-            dynamic o; //nie działa IntelliSense
-            o = 5;
-            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
-            o = 5L;
-            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
-            o = "Helion";
-            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
-            o = 1.0f;
-            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
-            o = 1.0;
-            Console.WriteLine(o.ToString() + ", " + o.GetType().FullName);
+            for (Typ type = Typ.Int; type <= Typ.ClassInstance; type++)
+            {
+                try
+                {
+                    dynamic o = ReturnDynamicObject(type);
+                    Console.WriteLine("Obiekt: " + o.ToString() + ", typ: " + o.GetType().FullName);
+                    o.Metoda();// tu będzie skakał wyjątek
+                }
+                catch (Exception exc)
+                {
+                    ConsoleColor currentColor = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Błąd: " + exc.Message);
+                    Console.ForegroundColor = currentColor;
+                }
+            }
 
             Console.ReadKey();
+        }
+
+        private static dynamic ReturnDynamicObject(Typ whichType = Typ.Int)
+        {
+            dynamic value;
+            switch (whichType)
+            {
+                case Typ.Int:
+                    value = 5;
+                    break;
+                case Typ.Long:
+                    value = 5L;
+                    break;
+                case Typ.String:
+                    value = "Helion";
+                    break;
+                case Typ.Float:
+                    value = 1.0f;
+                    break;
+                case Typ.Double:
+                    value = 1.0;
+                    break;
+                case Typ.DividedByZeroException:
+                    value = new DivideByZeroException();
+                    break;
+                case Typ.Field:
+                    value = obiekt;
+                    break;
+                case Typ.ClassInstance:
+                    value = new Klasa();
+                    break;
+                default:
+                    value = null;
+                    break;
+            }
+            return value;
         }
 
         private static void object_MethodEnded(object sender, DateTime timeOfMethodEnded)
