@@ -5,6 +5,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 namespace C_BasicExperiments
 {
@@ -47,27 +48,21 @@ namespace C_BasicExperiments
 
         static void Main(string[] args)
         {
-
-            var tab1 = InitArrayStandart(10);
-
-            Console.WriteLine("Wydruk elementów tablicy zaincjalizowanych za pomocą zwykłej pętli");
-            for (int i = 0; i < tab1.Length; i++)
-            {
-                Console.Write("tab1[{0}] = {1}{2}", i, tab1[i], i < (tab1.Length-1) ? ", " : "\n");
-            }
-            Console.WriteLine("**************");
-
-            var tab2 = InitArrayWithYield(10).ToArray();
-
-
-            Console.WriteLine("Wydruk elementów tablicy zaincjalizowanych za instrukcji yield");
-            for (int i = 0; i < tab1.Length; i++)
-            {
-                Console.Write("tab2[{0}] = {1}{2}", i, tab2[i], i < (tab1.Length - 1) ? ", " : "\n");
-            }
+            ShowInformacion("Fuck", sourceFilePath:"file");
 
             Console.ReadKey();
         }
+
+        public static void ShowInformacion(string normalArgument,
+            [CallerMemberName] string memberName = "",
+            [CallerFilePath] string sourceFilePath = "",
+            [CallerLineNumber] int sourceLineNumber = 0)
+        {
+            Console.WriteLine("Informacje o miejscu wywołania metody:");
+            Console.WriteLine("nazwa elementu składowego: " + memberName);
+            Console.WriteLine("ścieżka pliku z kodem źródłowym: " + sourceFilePath);
+            Console.WriteLine("numer lini, w której nastąpiło wywołanie: " + sourceLineNumber);
+        } 
 
         private static int[] InitArrayStandart(int size)
         {
