@@ -3,6 +3,8 @@
 #endif
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 namespace C_BasicExperiments
 {
@@ -46,11 +48,49 @@ namespace C_BasicExperiments
         static void Main(string[] args)
         {
 
-            HowExceptionWorks(2);
-            Console.WriteLine();
-            HowExceptionWorks(0);
+            var tab1 = InitArrayStandart(10);
+
+            Console.WriteLine("Wydruk elementów tablicy zaincjalizowanych za pomocą zwykłej pętli");
+            for (int i = 0; i < tab1.Length; i++)
+            {
+                Console.Write("tab1[{0}] = {1}{2}", i, tab1[i], i < (tab1.Length-1) ? ", " : "\n");
+            }
+            Console.WriteLine("**************");
+
+            var tab2 = InitArrayWithYield(10).ToArray();
+
+
+            Console.WriteLine("Wydruk elementów tablicy zaincjalizowanych za instrukcji yield");
+            for (int i = 0; i < tab1.Length; i++)
+            {
+                Console.Write("tab2[{0}] = {1}{2}", i, tab2[i], i < (tab1.Length - 1) ? ", " : "\n");
+            }
 
             Console.ReadKey();
+        }
+
+        private static int[] InitArrayStandart(int size)
+        {
+            int[] result = new int[size];
+
+            var random = new Random();
+
+            for (int i = 0; i < result.Length; i++)
+            {
+                result[i] = random.Next(100);
+            }
+            return result;
+        }
+
+        private static IEnumerable<int> InitArrayWithYield(int size)
+        {
+            var random = new Random();
+
+            for (int i = 0; i < size; i++)
+            {
+                yield return random.Next(100);
+            }
+            yield break;
         }
 
         private static int? HowExceptionWorks(int dzielnik)
