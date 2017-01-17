@@ -1,7 +1,9 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows.Forms;
+﻿#if DEBUG
+#warning Kompilacja "debug"
+#endif
 
+using System;
+using System.Windows.Forms;
 namespace C_BasicExperiments
 {
     class Program
